@@ -1,5 +1,7 @@
 # Day 20 — GPU Generations: Hopper, Ada, Blackwell, Rubin
 
+[Day 20 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Picking the wrong NVIDIA GPU generation for an inference deployment is expensive. The differences between generations are not incremental — each introduces new precision formats, interconnect speeds, and architectural features that change which optimizations are even available.
 
 Hopper (H100, 2022) is still the workhorse of production inference. It introduced FP8 Tensor Cores with native hardware support — 3.9 PFLOPS in FP8 versus 1.98 PFLOPS in FP16 (16-bit floating point). The Transformer Engine auto-selects FP8 or FP16 per layer at runtime. NVLink 4.0 at 900 GB/s bidirectional makes tight Tensor Parallelism (TP) within a node practical, and 80 GB of High-Bandwidth Memory (HBM3) at 3.35 TB/s feeds the SMs. TensorRT-LLM and vLLM both expose FP8 paths that lean directly on this hardware.

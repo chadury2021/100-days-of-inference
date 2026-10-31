@@ -1,5 +1,7 @@
 # Day 08 — PyTorch Model Formats, ONNX, and TensorRT
 
+[Day 08 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Day 06 covered how the ops:byte ratio reveals whether a workload is memory-bound or compute-bound. Day 07 showed how CUDA (Compute Unified Device Architecture) kernel fusion reduces unnecessary round-trips to HBM (High Bandwidth Memory). This picks up at the next abstraction layer — the frameworks and file formats that make it possible to ship optimized models without hand-writing CUDA for every deployment. The inference stack layers by increasing abstraction: CUDA, then frameworks and formats, then inference engines, then orchestration.
 
 Model serialization format determines portability, load speed, and what runtimes can optimize the result. PyTorch's `.pt` format pickles the full Python object graph — flexible but fragile across versions and not portable beyond Python. SafeTensors, created by Hugging Face, replaces it with a flat, memory-mappable format that holds only tensor data, no executable code. A pickle file can execute arbitrary Python on load; SafeTensors cannot. The speed difference shows at scale — for a 7B model, SafeTensors loads in ~2-3 seconds vs 10+ for pickle, because the OS maps pages directly to GPU (Graphics Processing Unit)-accessible memory.

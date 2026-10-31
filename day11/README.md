@@ -1,5 +1,7 @@
 # Day 11 — TensorRT-LLM: Compilation and the Plugin System
 
+[Day 11 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 vLLM and SGLang are general-purpose — they support many models and hardware configurations. Generality costs performance. TensorRT-LLM takes the opposite approach: narrow focus on NVIDIA GPUs, manual kernel selection, and access to closed-source NVIDIA-internal kernels unavailable elsewhere. Harder to use, best-in-class numbers.
 
 TensorRT-LLM V1 (the modern version) is built directly on PyTorch rather than the original TRT graph compiler. The compilation advantage comes from three sources: static shape specialization (knowing batch size, sequence length, and target GPU lets you select kernels optimal for those exact dimensions), kernel auto-selection (choosing the best GEMM implementation for each matrix size), and kernel fusion (identifying and merging operation sequences that can be expressed as a single kernel). V0 ran TRT's graph optimization; V1 achieves similar results with more flexibility.

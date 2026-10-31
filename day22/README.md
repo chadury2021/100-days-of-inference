@@ -1,5 +1,7 @@
 # Day 22 — Containerization: Docker and NVIDIA NIMs
 
+[Day 22 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Inference deployments fail in production because the serving environment doesn't match development. The CUDA version is wrong. The driver doesn't support FP8. The model weights are in the wrong format for the runtime. Containers fix this by packaging the CUDA runtime, framework, model artifacts, and configuration into a single reproducible unit that lands identically on every node.
 
 A production vLLM Dockerfile builds from the official `nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04` base image, pins vLLM and FastAPI versions, and either bakes weights into the image or mounts them from a volume at runtime. The NVIDIA Container Toolkit passes GPU access into the container without exposing the host driver. The container starts, loads weights into GPU High-Bandwidth Memory (HBM), and begins serving on the OpenAI-compatible port. A `HEALTHCHECK` directive with a 120-second `start-period` gives the model time to load before the orchestrator marks the container unhealthy.

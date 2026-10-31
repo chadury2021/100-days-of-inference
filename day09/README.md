@@ -1,5 +1,7 @@
 # Day 09 — vLLM: PagedAttention and Continuous Batching
 
+[Day 09 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Naive LLM (Large Language Model) serving has two expensive problems. First, the KV (Key-Value) cache for each request needs contiguous memory, but output length isn't known in advance. Pre-allocate for the maximum sequence length and most of it goes unused. Allocate lazily and memory fragments. Second, static batching waits for every request in a batch to finish before starting the next one — short requests hold the GPU (Graphics Processing Unit) idle while long ones complete.
 
 vLLM, the most widely adopted open-source inference engine, solves both. PagedAttention borrows the idea of virtual memory paging from operating systems. Instead of one contiguous KV cache allocation per request, GPU memory is divided into fixed-size blocks. A block table maps each request's logical token positions to physical block addresses, so the KV cache can be non-contiguous. Memory waste drops from O(max_seq_len) to O(1 block) of internal fragmentation per request. In practice, vLLM runs at 80-90% GPU memory utilization where naive allocators top out around 40-60%.

@@ -1,5 +1,7 @@
 # Day 25 — Multi-Cloud Capacity Management
 
+[Day 25 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 A high-volume inference fleet runs thousands of Graphics Processing Units (GPUs) — and at that scale, three things break at once. No single cloud has the supply. No single region keeps global users inside their latency budget. And hardware failure becomes routine: Llama 3's training run lost a GPU roughly every three hours over 54 days. Multi-cloud absorbs all three.
 
 True multi-cloud inference is more than running the same image in multiple accounts. The architecture splits into a global control plane (model deployment and global scaling decisions) and per-cloud workload planes (local traffic, in-cluster autoscaling). Workload planes must keep serving traffic if the control plane goes down — the global plane is for orchestration, not the request hot path.

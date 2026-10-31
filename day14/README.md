@@ -1,5 +1,7 @@
 # Day 14 — Quantization Algorithms: GPTQ, AWQ, SmoothQuant
 
+[Day 14 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Naive quantization rounds each weight independently to the nearest representable value. This works acceptably for FP16→BF16 but fails badly at INT4 — the rounding error compounds across layers. GPTQ, AWQ, and SmoothQuant each solve this differently.
 
 GPTQ (Generalized Post-Training Quantization) quantizes weights layer by layer, using the inverse Hessian to compensate for each weight's rounding error. The Hessian is the matrix of second-order derivatives of the loss with respect to the weights — it captures the curvature of the loss surface, or equivalently, which weight perturbations the model is most sensitive to. GPTQ approximates it per layer as H ≈ XᵀX / n from a small calibration batch, which is really the correlation structure of the input activations: weights along strongly correlated input channels absorb more of a neighbor's rounding error than weights along uncorrelated ones. When rounding weight w to the nearest INT4 value introduces an error ε = q - w, GPTQ immediately adjusts the remaining unquantized weights in that column to absorb ε: W[:,j+1:] -= ε × H_inv[j, j+1:] / H_inv[j,j]. The result: GPTQ INT4 achieves near-FP16 perplexity on most benchmarks, while naive round-to-nearest (RTN) INT4 shows significant degradation.

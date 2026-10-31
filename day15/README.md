@@ -1,5 +1,7 @@
 # Day 15 — Speculative Decoding: Draft, Verify, Repeat
 
+[Day 15 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Autoregressive decoding is sequential: each token depends on all previous tokens, and at batch size 1 the entire model gets read from High Bandwidth Memory (HBM) for every token generated. A 70B model on an H100 does ~30 tokens/sec not because the silicon is too slow, but because the compute units sit idle waiting on memory.
 
 Speculative decoding breaks this. A cheap "draft" model proposes K tokens at once, and the expensive "target" model verifies all K in a single forward pass — verification is parallel even though generation is not. Think writer and editor: the editor drafts several tokens ahead, the writer double-checks and corrects where needed, and together they emit 2-4 tokens in the time the writer alone would have produced one. Output quality is identical because verification uses rejection sampling — a mathematical guarantee, not a heuristic.

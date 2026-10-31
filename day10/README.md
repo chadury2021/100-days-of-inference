@@ -1,5 +1,7 @@
 # Day 10 — SGLang: RadixAttention and Structured Outputs
 
+[Day 10 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Day 09 covered how vLLM's PagedAttention eliminates per-request memory waste. But PagedAttention still recomputes the KV (Key-Value) cache from scratch for every request — even when thousands of requests start with the same 1000-token system prompt. That's redundant prefill compute, and it scales linearly with request volume.
 
 SGLang (Structured Generation Language) fixes this with RadixAttention, which uses a radix tree to store KV cache blocks by shared token prefixes. Two requests sharing a common prefix reuse the same physical KV blocks — no recomputation. The tree tracks reference counts so no block is evicted while in use. For a chatbot with a 500-token system prompt, cache hit rate after warmup approaches 100% for that prefix. The first request pays full prefill cost; subsequent requests pay near-zero for the shared portion. SGLang is the inference engine of choice at xAI partly because its prefix caching handles the high-reuse patterns common in production chatbots.

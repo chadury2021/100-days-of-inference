@@ -1,5 +1,7 @@
 # Day 05 — KV Cache
 
+[Day 05 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Autoregressive generation has a hidden cost: at each decode step, the model re-runs attention over the entire sequence from scratch. Token 0's Key and Value vectors at step 5 are identical to step 500 — but they get recomputed every time. Total work across N steps: 1 + 2 + 3 + ... + N = O(N²).
 
 The fix is the KV cache. Cache every past token's K and V after computing them once. On each new step, compute Q/K/V for the single new token only, concatenate with the cache, and run attention. The query still sees the full history — we just don't redo work for positions that are already done. The optimization is mathematically lossless.

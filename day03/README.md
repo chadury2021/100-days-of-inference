@@ -1,5 +1,7 @@
 # Day 03 — Embeddings
 
+[Day 03 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Every transformer based model (GPT, LLaMA, BERT, etc) starts the same way: a lookup table. The flow is always: text → tokens (integers) → embeddings (vectors) → transformer layers.
 
 Tokenization splits text into integer IDs, but those IDs carry zero semantic information. For example, token 4821 ("cat") is not mathematically closer to token 2955 ("dog") than to token 9173 ("airplane"). The embedding layer maps each integer to a learned dense vector: 768 dimensions in GPT-2, 4096 in LLaMA 7B, where semantic proximity is real and measurable.

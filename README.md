@@ -1,8 +1,12 @@
 # 100 Days of LLM Inference
 
+## Daily lecture series
+
+Start with the [course syllabus and day-by-day lecture schedule](./LECTURES.md), or open [Day 01 — Lecture 01](./day01/LECTURE.md). All 102 days include lecture notes, worked examples, lab instructions, and problem sets. Days 01–26 link existing notebooks; Days 27–102 include written implementation assignments. See the syllabus for prerequisites, assessment, and measurement conventions.
+
 A structured deep-dive into inference engineering — from CUDA kernels to multi-cloud autoscaling — built around *[Inference Engineering](https://www.baseten.co/library/inference-engineering/)* by Philip Kiely (Baseten Books, 2026).
 
-Each entry is a runnable script. All experiments run on a home-lab cluster of two NVIDIA DGX Sparks.
+Each day has a written lecture and assignment; the first 26 days also have existing notebooks. The original hardware experiments target a home-lab cluster of two NVIDIA DGX Sparks; later assignments include CPU simulations and optional supported-hardware experiments.
 
 ---
 
@@ -81,7 +85,7 @@ The book explains the concepts. Now implement them.
 | Implement Flash Attention (simplified, tiling in Python) |
 | Profile attention memory growth across sequence lengths |
 | Build an INT8 quantization pipeline: quantize → dequantize → measure error |
-| Implement GPTQ-style round-to-nearest with Hessian weighting |
+| Curvature-aware quantization: scale search and GPTQ distinctions |
 | Sweep quantization bit widths and plot perplexity vs compression |
 | Simulate draft-target speculative decoding with acceptance sampling |
 | Build a simple KV cache manager (block allocator, eviction policy) |
@@ -108,13 +112,13 @@ Ship it.
 | Project |
 |---------|
 | Write a production Dockerfile for a vLLM inference server |
-| Build and push a NIM-compatible container |
+| NVIDIA NIM deployment and custom serving-container contracts |
 | Simulate an autoscaling policy: requests per second → replica count |
 | Measure cold start latency: model load times at different sizes |
 | Implement round-robin and least-connections load balancers |
 | Build a priority request queue with batch formation |
 | Multi-GPU tensor parallel benchmark across spark-01 and spark-02 |
-| Configure MIG on a Spark GPU: profile different partition sizes |
+| MIG capability checks and partition planning on supported GPUs |
 | GPU cost model: $/token across instance types at different utilizations |
 | Blue-green deployment: zero-downtime model version swap |
 | Emit Prometheus metrics from an inference server |
@@ -210,6 +214,8 @@ jupyter notebook
 ---
 
 ## Progress
+
+**Written lectures:** 102 / 102. The table below tracks the original notebook/project implementation progress, not completion of the written course. Later lecture assignments are not prebuilt implementations.
 
 | Phase | Status |
 |-------|--------|

@@ -1,5 +1,7 @@
 # Day 06 — Ops:Byte Ratio and the Roofline Model
 
+[Day 06 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Every GPU has two ceilings: compute (FLOPS/s) and memory bandwidth (bytes/s). The ops:byte ratio is compute divided by bandwidth ie (FLOPS/bytes per second). An H100 SXM does 989 TFLOPS of BF16 math. Its memory bandwidth is 3.35 TB/s. Dividing one by the other: 989 TFLOPS / 3.35 TB/s ≈ 295 ops/byte. That ratio is the break-even between two different bottlenecks — and it explains why a 989 TFLOPS GPU can feel slow during inference. 
 
 In the time it takes to read one byte from HBM, the compute units can execute 295 ops. An operation needing fewer than 295 ops per byte is memory-bound: compute sits idle waiting for data. More than 295, and compute becomes the ceiling.

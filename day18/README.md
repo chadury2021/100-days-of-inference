@@ -1,5 +1,7 @@
 # Day 18 — Disaggregation: Prefill/Decode Split
 
+[Day 18 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Prefill and decode are fundamentally different workloads. Prefill processes the entire prompt in one forward pass — it's compute-bound, high arithmetic intensity, GPU utilization near 100% for the duration. Decode generates one token at a time — it's memory-bound, low batch size, bottlenecked by High-Bandwidth Memory (HBM) bandwidth not FLOPS (floating-point operations per second). Running both on the same GPU means each one compromises the other's optimal operating point.
 
 Disaggregation splits them onto separate hardware. A prefill worker receives a new request, runs the forward pass over the prompt, produces the key-value (KV) cache. It then transfers the KV cache to a decode worker via a high-bandwidth interconnect (NVIDIA Inference Xfer Library, NIXL, in Dynamo's case — NVLink or InfiniBand depending on topology). The decode worker holds the KV in HBM and generates tokens autoregressively until the sequence completes.

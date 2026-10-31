@@ -1,5 +1,7 @@
 # Day 04 — Attention
 
+[Day 04 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Embeddings turn tokens into vectors, but each token is still computed in isolation. Attention is what lets tokens relate to one another in context.
 
 Each token creates a Q (Query), K (Key), and V (Value). Query-Key scores decide relevance, softmax turns those into probabilities, and the model uses them to mix the right Values. In GPT-style models, a causal mask ensures each token can only attend to earlier tokens.

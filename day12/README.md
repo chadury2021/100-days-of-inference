@@ -1,5 +1,7 @@
 # Day 12 — NVIDIA Dynamo: Disaggregated Serving
 
+[Day 12 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Even with the best inference engine, a fundamental tension remains: prefill and decode compete for the same GPU resources but have opposite characteristics. Prefill is compute-bound — it monopolizes the GPU for seconds on long prompts. Decode is memory-bound — it needs a small, steady flow of GPU bandwidth. Running them together means each interferes with the other's optimal operating point.
 
 NVIDIA Dynamo, announced at GTC March 2025, decouples them. Dynamo is an orchestration layer that sits above inference engines and manages a fleet of workers: dedicated prefill workers (compute-optimized, can take large batches of prompts), dedicated decode workers (memory-optimized, keep KV cache resident for active sequences), and a KV transfer layer that ships the computed KV cache from prefill to decode workers after the forward pass.

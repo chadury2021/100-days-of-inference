@@ -1,5 +1,7 @@
 # Day 21 — Multi-GPU Instances and Multi-Instance GPU (MIG)
 
+[Day 21 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Picking the right GPU instance for a model is a capacity planning decision with significant cost implications. Too small and the model won't fit. Too large and VRAM and compute sit idle. Multi-Instance GPU (MIG) adds a third lever: slice one GPU into isolated hardware instances for right-sized multi-tenant serving.
 
 The GPU count on an instance determines which models fit and what parallelism is available. A single H100 (80 GB of High-Bandwidth Memory, HBM) handles ~30B parameters in FP16 with Key-Value (KV) cache headroom, or 70B at INT4. Four GPUs (320 GB) covers 70B in FP16. Eight GPUs (640 GB) can serve 405B. GB200 NVL72, with 13.5 TB across 72 Blackwell GPUs, handles any open model available today, and the forthcoming Vera Rubin NVL72 lifts that ceiling further with 288 GB of HBM4 per GPU.

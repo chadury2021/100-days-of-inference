@@ -1,5 +1,7 @@
 # Day 26 — Zero-Downtime Deployment & Cost Estimation
 
+[Day 26 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Models change. New checkpoints, quantization swaps, runtime upgrades, configuration tweaks — and none of it can ship with downtime on a live inference Application Programming Interface (API). Once the deployment problem is solved, the next question is what the hardware actually costs per million tokens.
 
 Three deployment strategies bracket the safety-versus-capacity tradeoff. Blue-green runs two identical fleets — blue is currently serving, green is the new version. Once green passes health checks against a hold-out traffic slice, the load balancer flips weights atomically. Rollback is one weight flip. The cost: 2× Graphics Processing Unit (GPU) capacity during the overlap, typically 15–30 minutes for a careful cutover. Rolling updates replace replicas one at a time — cheapest, but some traffic always lands on the in-flight version during the swap. Canary shifts traffic in steps (1% → 5% → 25% → 100%) with automatic rollback if error rate or p99 latency breaches a threshold. Slowest path, but it catches subtle regressions that only show up at small traffic slices — prompt-format edge cases, numerical drift from a new quantization.

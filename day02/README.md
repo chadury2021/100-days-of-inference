@@ -1,5 +1,7 @@
 # Day 02 — What's Inside a Model
 
+[Day 02 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 A model file is not a program. It's a container of numbered arrays.
 
 GPT-2's weight file is 523 MB. Inside: a JSON header mapping tensor names to byte offsets, followed by raw floats packed end to end. The entire thing parses with Python's struct module and numpy. No ML library needed.

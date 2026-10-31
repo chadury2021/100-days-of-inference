@@ -1,5 +1,7 @@
 # Day 07 — CUDA Kernels and Kernel Fusion
 
+[Day 07 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Every PyTorch op dispatches a CUDA (Compute Unified Device Architecture) kernel — a function that runs in parallel across thousands of GPU threads. The hidden cost: back-to-back ops write intermediates to HBM (High Bandwidth Memory — the GPU's main off-chip DRAM) and read them back for the next op. Decode is already memory-bound, so every unnecessary HBM round-trip compounds the bottleneck.
 
 Kernel fusion eliminates those intermediate writes. A fused SwiGLU kernel computes the gate, activation, and elementwise multiply in one pass — intermediates stay in registers or L1 cache, never touching HBM. For a typical FFN layer (d_model=4096, ffn_dim=11008), the unfused path reads and writes three separate tensors; the fused path reads once and writes once. At 3.35 TB/s, eliminating two HBM round-trips saves measurable microseconds per token.

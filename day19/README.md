@@ -1,5 +1,7 @@
 # Day 19 — GPU Architecture: SMs, Memory Hierarchy, and HBM
 
+[Day 19 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 All the inference optimizations so far — kernel fusion, tensor parallelism, FlashAttention — reference GPU hardware without explaining it. The hardware is what makes those optimizations legible rather than magical.
 
 An H100 SXM has 132 Streaming Multiprocessors (SMs). Each SM contains Tensor Cores (for General Matrix Multiplication, GEMM), CUDA cores (for scalar ops), and 256 KB of L1/shared memory (Static RAM, SRAM). On-chip SRAM delivers ~30 TB/s — about 9× faster than High-Bandwidth Memory (HBM). The full chip has 80 GB of HBM3 at 3.35 TB/s, shared across all SMs. The L2 cache is 50 MB, shared, at ~10 TB/s.

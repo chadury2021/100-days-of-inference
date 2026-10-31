@@ -1,5 +1,7 @@
 # Day 16 — Prefix caching is a prompt design problem
 
+[Day 16 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Prefix caching sounds like a runtime trick — a hash table inside vLLM that skips prefill when two requests share tokens. It is. But the production lesson is that it's really a constraint on how prompts get built: where the novel tokens sit decides whether time-to-first-token (TTFT) drops 100x or doesn't move at all.
 
 The mechanic falls out of autoregression. Every token's key-value (KV) entry depends on every token before it, so two requests sharing the first k tokens have bit-identical KV entries for positions [0, k). "Weather in SF?" and "Weather in NYC?" share two tokens; flip to "SF weather today?" vs "NYC weather today?" and the savings vanish. The rule: variable parts go last. A 10K-token system prompt with a 50-token user question ships TTFTs 200x faster with good templating than bad.

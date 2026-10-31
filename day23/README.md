@@ -1,5 +1,7 @@
 # Day 23 — Autoscaling: Concurrency, Batching, and Cold Starts
 
+[Day 23 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 Production traffic varies 10x or more across a day and can spike 5x in minutes. Static provisioning either burns money in the troughs or breaks during the peaks. Autoscaling adjusts the live replica count to match traffic — but for Large Language Model (LLM) inference, the policy levers are unlike stateless web serving.
 
 Autoscaling policy comes down to five parameters: minimum replicas, maximum replicas, the autoscaling window, the scale-down delay, and a concurrency target per replica. Two signals drive decisions — traffic (request rate, queue depth) leads, while Graphics Processing Unit (GPU) utilization lags. Scale-down delay prevents flapping when traffic dips briefly; the cost is paying for replicas after traffic has actually left.

@@ -1,5 +1,7 @@
 # Day 01 — What Is LLM Inference?
 
+[Day 01 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 An LLM does not plan a response and then write it. It predicts one token, appends it to the sequence, and predicts the next. This loop is inference.
 
 GPT-2 (124M params, runs on CPU) makes a good teaching model for breaking this apart. Every request follows three stages:

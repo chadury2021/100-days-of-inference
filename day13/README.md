@@ -1,5 +1,7 @@
 # Day 13 — Quantization: Number Formats (FP8, INT8, INT4, NVFP4)
 
+[Day 13 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 A 70B parameter model in FP32 occupies 280 GB — four H100s just to hold the weights. In BF16, that's 140 GB. INT8: 70 GB. INT4: 35 GB, fitting on a single H100 with room for KV cache. NVFP4 lands around 40 GB at ~4.5 effective bits per weight, with quality closer to FP8 than INT4. Quantization is not just a compression trick; it's what makes large models economically servable.
 
 The tradeoff is precision loss. FP32 has 23 mantissa bits. FP16 has 10. BF16 has 7 but the same exponent range as FP32, which is why it's preferred for training. INT8 has 7 bits of dynamic range with no floating-point representation. Each reduction cuts the representable space roughly in half. The question is how much accuracy you lose on your downstream task.

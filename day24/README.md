@@ -1,5 +1,7 @@
 # Day 24 — Routing, Load Balancing & Queueing
 
+[Day 24 lecture notes](./LECTURE.md) · [Full lecture schedule](../LECTURES.md)
+
 A Large Language Model (LLM) request can carry 10 input tokens or 100,000. Round-robin treats them as equal and lands a 100K-token prefill on the same replica as a chat turn — turning the chat turn into a thirty-second wait. Once a fleet has more than one replica, the routing layer becomes one of the highest-leverage knobs in the stack.
 
 Routers and load balancers split that layer cleanly. Routers make per-request decisions ("where should this request go?"). Load balancers make system-level decisions ("where could this request go?"). Real systems chain both: a load balancer picks healthy candidates, a router picks among them using state the load balancer never sees — sequence length, prefix-cache contents, and Low-Rank Adaptation (LoRA) adapter status.
