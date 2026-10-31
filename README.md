@@ -2,6 +2,8 @@
 
 ## Daily lecture series
 
+Download the [complete 108-page lecture PDF](./output/pdf/inference-engineering-complete-lectures.pdf), including all 102 lectures, a linked contents page, and bookmarks.
+
 Start with the [course syllabus and day-by-day lecture schedule](./LECTURES.md), or open [Day 01 — Lecture 01](./day01/LECTURE.md). All 102 days include lecture notes, worked examples, lab instructions, and problem sets. Days 01–26 link existing notebooks; Days 27–102 include written implementation assignments. See the syllabus for prerequisites, assessment, and measurement conventions.
 
 A structured deep-dive into inference engineering — from CUDA kernels to multi-cloud autoscaling — built around *[Inference Engineering](https://www.baseten.co/library/inference-engineering/)* by Philip Kiely (Baseten Books, 2026).

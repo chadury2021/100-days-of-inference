@@ -192,6 +192,8 @@ Assess reports for correctness (40%), reproducible evidence (30%), interpretatio
 
 ## Maintaining the course
 
+The [complete lecture PDF](./output/pdf/inference-engineering-complete-lectures.pdf) contains the course guide and all 102 lectures. Rebuild it with `python3 scripts/build_lecture_pdf.py` after installing Pandoc, XeLaTeX (TeX Live), and the STIX Two Text and STIX Two Math fonts; the current layout also uses Helvetica and Menlo. The script writes temporary typesetting files under `tmp/pdfs/` and the final document under `output/pdf/`. PDF compilation does not execute the student labs.
+
 Run `python3 scripts/validate_lectures.py` from the repository root after editing lessons. The check verifies all 102 day labels, schedule titles, required sections, adjacent navigation, and local Markdown links and anchors. It does not execute student assignments or validate external websites.
 
 The roadmap now distinguishes a curvature-aware teaching experiment from full GPTQ, a custom serving image from NVIDIA NIM, and supported MIG hardware from the Spark lab. These distinctions also appear in the corresponding lectures.
